@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sophoshop - MY PAGE</title>
+    <link rel="stylesheet" href="home.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        /* 고정 UI 스타일 */
+        .ui-fixed-img {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            z-index: 999;
+        }
+
+        /* 🚀 my.html과 동일하게 위치와 크기를 강제 일치시키는 CSS */
+        a.ui-fixed-my {
+    position: fixed !important;
+    top: 1vw !important;    /* my.html과 동일한 세로 위치 */
+    right: 2vw !important;    /* my.html과 동일한 가로 위치 */
+    z-index: 99999 !important;/* 최상단 고정 */
+    display: inline-block !important;
+    width: auto !important;
+    height: auto !important;
+    cursor: pointer;
+}
+
+a.ui-fixed-my img {
+    width: 3vw !important;  /* my.html과 동일한 크기 */
+    height: auto !important;  /* 비율 자동 유지 */
+    max-width: none !important;
+    max-height: none !important;
+    display: block !important;
+    transition: transform 0.2s, filter 0.2s;
+}
+
+a.ui-fixed-my img:hover {
+    transform: scale(1.08);
+    filter: brightness(1.2);
+}
+
+        /* 마이페이지 메인 컨테이너 */
+        .my-container {
+            max-width: 1000px;
+            margin: 140px auto 0;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #222;
+            padding-bottom: 15px;
+        }
+
+        /* bag 테이블 레이아웃 */
+        .cart-section {
+            background: #0d0d0d;
+            border: 1px solid #222;
+            padding: 30px;
+            border-radius: 4px;
+        }
+
+        .cart-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #ff3300;
+            letter-spacing: 1px;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 60px 0;
+            color: #666;
+            font-size: 15px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #1a1a1a;
+            gap: 20px;
+        }
+
+        .cart-item-img {
+            width: 90px;
+            height: 90px;
+            background: #000;
+            border: 1px solid #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
+        }
+
+        .cart-item-img img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .cart-item-price {
+            font-size: 15px;
+            color: #aaa;
+        }
+
+        /* 수량 조절 */
+        .qty-control {
+            display: flex;
+            align-items: center;
+        }
+
+        .qty-control button {
+            width: 28px;
+            height: 28px;
+            background: #1a1a1a;
+            color: #fff;
+            border: 1px solid #333;
+            cursor: pointer;
+        }
+
+        .qty-control input {
+            width: 38px;
+            height: 28px;
+            text-align: center;
+            background: #000;
+            color: #fff;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            border-left: none;
+            border-right: none;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        .delete-btn:hover { color: #ff3300; }
+
+        /* 주문 요약 */
+        .cart-summary {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-price-label { font-size: 16px; color: #aaa; }
+        .total-price-value { font-size: 24px; font-weight: 900; color: #fff; }
+
+        .checkout-btn {
+            width: 100%;
+            margin-top: 25px;
+            padding: 18px;
+            background: #ffffff;
+            color: #000000;
+            font-weight: 900;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: background 0.2s;
+        }
+
+        .checkout-btn:hover { background: #dddddd; }
+
+        /* 메뉴바 */
+        .top-menu-bar {
+            position: fixed; top: 5vw; right: 2vw; z-index: 1000;
+            display: flex; gap: 1.5vw;
+        }
+        .top-menu-bar img { height: 3.5vw; width: auto; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <!-- 고정 헤더 -->
+    <a href="index.html" class="ui-fixed-img">
+        <img src="images/start2.png" alt="상단 고정 메인 이동" style="width: 100%; height: auto; display: block;">
+    </a>
+
+    <!-- 🚀 MY png 링크 적용 -->
+    <a href="my.html" class="ui-fixed-my">
+        <img src="images/my.png" alt="MY PAGE">
+    </a>
+
+    <!-- 마이페이지 / bag 본문 -->
+    <div class="my-container">
+        <h1 class="page-title">MY CART & ACCOUNT</h1>
+
+        <div class="cart-section">
+            <h2 class="cart-header">SHOPPING BAG</h2>
+            
+            <!-- bag 동적 리스트 영역 -->
+            <div id="cart-list"></div>
+
+            <!-- 주문 결제 요약 -->
+            <div id="cart-summary-box" style="display: none;">
+                <div class="cart-summary">
+                    <span class="total-price-label">TOTAL PAYMENT</span>
+                    <div>
+                        <span id="total-price" class="total-price-value">0</span>
+                        <span style="font-size: 14px; color: #aaa;"> KRW</span>
+                    </div>
+                </div>
+                <button class="checkout-btn" onclick="alert('주문 결제 단계로 진행합니다.')">PROCEED TO CHECKOUT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 우측 상단 메인 메뉴바 -->
+    <div class="top-menu-bar">
+        <img src="images/png/shop/home.png" alt="Home" onclick="location.href='home.html'">
+        <img src="images/png/home/shop.png" alt="Shop" onclick="location.href='shop.html'">
+        <img src="images/png/home/story.png" alt="Story" onclick="location.href='story.html'">
+    </div>
+
+    <script>
+        window.addEventListener('load', renderCart);
+
+        function renderCart() {
+            const cartList = document.getElementById('cart-list');
+            const summaryBox = document.getElementById('cart-summary-box');
+            let cart = JSON.parse(localStorage.getItem('sophoCart')) || [];
+
+            if (cart.length === 0) {
+                cartList.innerHTML = `<div class="cart-empty">bag에 담긴 ss이 없습니다.</div>`;
+                summaryBox.style.display = 'none';
+                return;
+            }
+
+            summaryBox.style.display = 'block';
+            let html = '';
+            let grandTotal = 0;
+
+            cart.forEach(item => {
+                const numPrice = parseInt(item.price.replace(/,/g, '')) || 0;
+                const itemTotal = numPrice * item.qty;
+                grandTotal += itemTotal;
+
+                html += `
+                    <div class="cart-item">
+                        <div class="cart-item-img">
+                            <img src="${item.imgSrc}" alt="${item.title}">
+                        </div>
+                        <div class="cart-item-info">
+                            <div class="cart-item-title">${item.title}</div>
+                            <div class="cart-item-price">${item.price} KRW</div>
+                        </div>
+                        <div class="qty-control">
+                            <button onclick="updateQty(${item.id}, -1)">-</button>
+                            <input type="text" value="${item.qty}" readonly>
+                            <button onclick="updateQty(${item.id}, 1)">+</button>
+                        </div>
+                        <button class="delete-btn" onclick="deleteCartItem(${item.id})">&times;</button>
+                    </div>
+                `;
+            });
+
+            cartList.innerHTML = html;
+            document.getElementById('total-price').innerText = grandTotal.toLocaleString();
+        }
+
+        function updateQty(id, delta) {
+            let cart = JSON.parse(localStorage.getItem('sophoCart')) || [];
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty < 1) item.qty = 1;
+                localStorage.setItem('sophoCart', JSON.stringify(cart));
+                renderCart();
+            }
+        }
+
+        function deleteCartItem(id) {
+            let cart = JSON.parse(localStorage.getItem('sophoCart')) || [];
+            cart = cart.filter(i => i.id !== id);
+            localStorage.setItem('sophoCart', JSON.stringify(cart));
+            renderCart();
+        }
+    </script>
+</body>
+</html>

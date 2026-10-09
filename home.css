@@ -1,0 +1,220 @@
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+            background-color: #000000;
+            overflow-x: hidden; /* 가로 스크롤 방지 */
+            overflow-y: auto;
+        }
+        /* 2. 내부 컨테이너 박스의 중복 스크롤 속성 제거 */
+.home-container, 
+.wrapper, 
+main {
+    width: 100%;
+    height: auto !important;       /* 👈 고정 높이(100vh 등) 해제 */
+    max-height: none !important;
+    overflow: visible !important;  /* 👈 내부 이중 스크롤바 생성 차단 */
+}
+
+        .shop-container {
+            width: 100vw;
+            height: 1130vw; /* 👈 전체 스크롤 길이를 vw 비율에 맞게 고정 */
+            position: relative; 
+            background-color: #000000;
+        }
+
+        .ui-fixed-img {
+            position: fixed; top: 0; left: 0; width: 100vw; z-index: 999;
+        }
+
+        .obj { position: absolute; z-index: 5; height: auto; }
+        .clickable-link { cursor: pointer; display: block; }
+
+        /* ==========================================================
+           📐 반응형 좌표 구역 (px -> vw 변환 완료)
+        ========================================================== */
+        
+        .txt-sophoshop   { width: 94vw; top: 17vw;  left: 2vw; }
+        .txt-shop-title  { width: 13vw; top: 65vw; left: 4vw; }
+        
+
+        .img-headphone   { width: 39vw; top: 75vw;  left: 4vw; }
+        .img-glasses     { width: 35vw; top: 78vw;  left: 50vw; }
+        .img-airpods     { width: 22vw; top: 121vw; left: 45vw; }
+        .img-lighter     { width: 19vw; top: 96vw;  left: 72vw; }
+
+        .img-shoes       { width: 45vw; top: 150vw; left: 5vw; }
+        .img-hairpin     { width: 39vw; top: 130vw; left: 55vw; }
+
+        .img-necklace    { width: 20vw; top: 185vw; left: 20vw; }
+        .img-ring        { width: 16vw; top: 214vw; left: 55vw; }
+
+        .img-book        { width: 90vw; top: 240vw; left: 3vw; z-index: 6; }
+        
+        /* p 섹션 (가로폭 기준 동일 비율) */
+        .txt-poster-title{ width: 13vw; top: 353vw; left: 7vw; }
+        .img-poster-1    { width: 22vw; top: 314vw; left: 8vw;  z-index: 10; }
+        .img-poster-2    { width: 22vw; top: 318vw; left: 17vw; z-index: 11; }
+        .img-poster-3    { width: 22vw; top: 322vw; left: 26vw; z-index: 12; }
+        .img-poster-4    { width: 22vw; top: 327vw; left: 35vw; z-index: 13; }
+        .img-poster-5    { width: 22vw; top: 331vw; left: 44vw; z-index: 14; }
+        .img-poster-6    { width: 22vw; top: 335vw; left: 53vw; z-index: 15; }
+
+        /* 굿즈 섹션 */
+        .img-f-poster    { width: 25vw; top: 375vw; left: 7vw; }
+        .img-phoncase    { width: 16vw; top: 375vw; left: 39vw; }
+        .img-maskcase    { width: 22vw; top: 372.2vw; left: 61vw; }
+        .img-sleepmask   { width: 17vw; top: 400vw; left: 37vw; }
+        .img-band        { width: 10vw; top: 398vw; left: 59vw; }
+        .img-keyring     { width: 18vw; top: 395vw; left: 75vw; }
+        .img-t1          { width: 25vw; top: 427vw; left: 7vw; }
+        .img-t2          { width: 25vw; top: 427vw; left: 36vw; }
+        .img-t3          { width: 25vw; top: 427vw; left: 65vw; }
+        .img-t4          { width: 25vw; top: 459vw; left: 7vw; }
+        .img-t5          { width: 25vw; top: 459vw; left: 36vw; }
+        .img-t6          { width: 25vw; top: 459vw; left: 65vw; }
+        .img-tshirt      { width: 9vw; top: 488vw; left: 7vw; }
+
+        .txt-story-title { width: 13vw; top: 506vw; left: 4vw; }
+
+        /* 반응형 메뉴바 */
+        .top-menu-bar {
+            position: fixed; top: 5vw; right: 2vw; z-index: 1000;
+            display: flex; gap: 1.5vw;
+        }
+        .top-menu-bar img { height: 3.5vw; width: auto; cursor: pointer; }
+
+    
+   /* 1. 기본 스타일 */
+.obj {
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                filter 0.5s ease-in-out;
+}
+
+/* 2. ss png 전용 호버 (이제 스르르 커집니다) */
+.obj:hover {
+    transform: scale(1.08) !important;
+    filter: brightness(1.01) drop-shadow(0 5px 20px rgba(255, 255, 255, 0.4)) !important;
+    z-index: 100 !important;
+}
+
+/* 3. 타이틀 예외 처리 (무조건 고정) */
+.txt-sophoshop, .txt-shop-title, .txt-poster-title, .txt-story-title, video.obj {
+    pointer-events: none !important;
+    transform: none !important;
+    transition: none !important;
+}
+
+/* 4. 스크롤 애니메이션 (transform 대신 top을 써서 충돌 방지) */
+.fade-in-up {
+    animation: fadeInUp 1s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; margin-top: 30px; }
+    to { opacity: 1; margin-top: 0; }
+}
+
+html {
+    scroll-behavior: smooth; /* 스크롤을 슥~ 부드럽게 이동하게 함 */
+}
+
+/* Shop 영역의 상단 위치를 감지할 기준점 */
+#shop-trigger {
+    position: absolute;
+    top: 60vw; /* sopho 텍스트가 끝나는 지점이나 Shop이 시작되는 지점 */
+    width: 100%;
+    height: 1px;
+    pointer-events: none;
+}
+
+/* ==========================================================
+   🎬 Story 영상 & 텍스트 반응형 좌표 (vw)
+========================================================== */
+
+/* video 태그가 영역을 가득 채우도록 기본 설정 */
+video.obj {
+    object-fit: cover; /* 영상 비율이 깨지지 않고 프레임에 차도록 설정 */
+    border: 1px solid #ffffff; /* (선택) 첨부 png처럼 흰색 테두리 연출 원할 경우 */
+}
+
+/* --- 01번 라인 (좌측 영상, 우측 텍스트) --- */
+.video-story-1 { width: 33vw; top: 515vw; left: 4vw; }
+.txt-story-1   { width: 10vw; top: 515vw; left: 39vw; }
+
+/* --- 02번 라인 (우측 영상, 더 우측 텍스트) --- */
+.video-story-2 { width: 33vw; top: 530vw; left: 53vw; }
+.txt-story-2   { width: 10vw; top: 530vw; left: 88vw; }
+
+
+.video-story-3 { width: 33vw; top: 576vw; left: 4vw; }
+.txt-story-3   { width: 10vw; top: 576vw; left: 39vw; }
+
+
+.video-story-4 { width: 33vw; top: 591vw; left: 53vw; }
+.txt-story-4   { width: 10vw; top: 591vw; left: 88vw; }
+
+
+.video-story-5 { width: 33vw; top: 637vw; left: 4vw; }
+.txt-story-5   { width: 10vw; top: 637vw; left: 39vw; }
+
+
+.video-story-6 { width: 33vw; top: 652vw; left: 53vw; }
+.txt-story-6   { width: 10vw; top: 652vw; left: 88vw; }
+
+
+.video-story-7 { width: 33vw; top: 698vw; left: 4vw; }
+.txt-story-7   { width: 10vw; top: 698vw; left: 39vw; }
+
+
+.video-story-8 { width: 33vw; top: 713vw; left: 53vw; }
+.txt-story-8   { width: 10vw; top: 713vw; left: 88vw; }
+
+
+.video-story-9 { width: 33vw; top: 759vw; left: 4vw; }
+.txt-story-9   { width: 10vw; top: 759vw; left: 39vw; }
+
+
+.video-story-10 { width: 33vw; top: 774vw; left: 53vw; }
+.txt-story-10   { width: 10vw; top: 774vw; left: 88vw; }
+
+
+.video-story-11 { width: 33vw; top: 820vw; left: 4vw; }
+.txt-story-11   { width: 10vw; top: 820vw; left: 39vw; }
+
+
+.video-story-12 { width: 33vw; top: 835vw; left: 53vw; }
+.txt-story-12   { width: 10vw; top: 835vw; left: 88vw; }
+
+
+.video-story-13 { width: 33vw; top: 881vw; left: 4vw; }
+.txt-story-13   { width: 10vw; top: 881vw; left: 39vw; }
+
+
+.video-story-14 { width: 33vw; top: 896vw; left: 53vw; }
+.txt-story-14   { width: 10vw; top: 896vw; left: 88vw; }
+
+
+.video-story-15 { width: 33vw; top: 942vw; left: 4vw; }
+.txt-story-15   { width: 10vw; top: 942vw; left: 39vw; }
+
+
+.video-story-16 { width: 33vw; top: 957vw; left: 53vw; }
+.txt-story-16   { width: 10vw; top: 957vw; left: 88vw; }
+
+
+.video-story-17 { width: 33vw; top: 1003vw; left: 4vw; }
+.txt-story-17   { width: 10vw; top: 1003vw; left: 39vw; }
+
+
+.video-story-18 { width: 33vw; top: 1018vw; left: 53vw; }
+.txt-story-18   { width: 10vw; top: 1018vw; left: 88vw; }
+
+
+.video-story-19 { width: 33vw; top: 1064vw; left: 4vw; }
+.txt-story-19   { width: 10vw; top: 1064vw; left: 39vw; }
+
+
+.video-story-20 { width: 33vw; top: 1079vw; left: 53vw; }
+.txt-story-20   { width: 10vw; top: 1079vw; left: 88vw; }

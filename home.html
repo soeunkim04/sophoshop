@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - 상점</title>
+    <link rel="stylesheet" href="home.css">
+    <style>
+        /* 🚀 MY png 크기 및 위치 (my.html 스타일과 100% 동일하게 일치) */
+         /* 🚀 my.html과 동일하게 위치와 크기를 강제 일치시키는 CSS */
+         a.ui-fixed-my {
+    position: fixed !important;
+    top: 1vw !important;    /* my.html과 동일한 세로 위치 */
+    right: 2vw !important;    /* my.html과 동일한 가로 위치 */
+    z-index: 99999 !important;/* 최상단 고정 */
+    display: inline-block !important;
+    width: auto !important;
+    height: auto !important;
+    cursor: pointer;
+}
+
+a.ui-fixed-my img {
+    width: 3vw !important;  /* my.html과 동일한 크기 */
+    height: auto !important;  /* 비율 자동 유지 */
+    max-width: none !important;
+    max-height: none !important;
+    display: block !important;
+    transition: transform 0.2s, filter 0.2s;
+}
+
+a.ui-fixed-my img:hover {
+    transform: scale(1.08);
+    filter: brightness(1.2);
+}
+
+        /* 🛍️ 커머스 상세페이지 (모달 팝업) 전용 CSS */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.88);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-content {
+            background-color: #0d0d0d;
+            border: 1px solid #2a2a2a;
+            width: 820px;
+            max-width: 90%;
+            color: #ffffff;
+            position: relative;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            border-radius: 4px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #888888;
+            font-size: 32px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover { color: #ffffff; }
+
+        .modal-body {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .modal-img-box {
+            flex: 1;
+            background-color: #000000;
+            padding: 30px;
+            border: 1px solid #1f1f1f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 380px;
+        }
+
+        .modal-img-box img {
+            max-width: 100%;
+            max-height: 320px;
+            object-fit: contain;
+            filter: drop-shadow(0 5px 15px rgba(255, 255, 255, 0.1));
+        }
+
+        .modal-info-box {
+            flex: 1.1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-tag {
+            font-size: 11px;
+            color: #ff3300;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        #modal-title {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+            word-break: keep-all;
+        }
+
+        .price-row {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .currency {
+            font-size: 13px;
+            margin-left: 4px;
+            color: #888888;
+            font-weight: normal;
+        }
+
+        .divider {
+            border: 0;
+            height: 1px;
+            background: #222222;
+            margin-bottom: 24px;
+        }
+
+        .quantity-group {
+            margin-bottom: 30px;
+        }
+
+        .quantity-group label {
+            display: block;
+            font-size: 11px;
+            color: #888888;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .qty-control {
+            display: flex;
+            align-items: center;
+        }
+
+        .qty-control button {
+            width: 36px;
+            height: 36px;
+            background: #1a1a1a;
+            color: #ffffff;
+            border: 1px solid #333333;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .qty-control input {
+            width: 50px;
+            height: 36px;
+            text-align: center;
+            background: #000000;
+            color: #ffffff;
+            border-top: 1px solid #333333;
+            border-bottom: 1px solid #333333;
+            border-left: none;
+            border-right: none;
+            font-size: 14px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .cart-btn, .buy-btn {
+            flex: 1;
+            padding: 16px;
+            font-weight: bold;
+            font-size: 13px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .cart-btn {
+            background: #222222;
+            color: #ffffff;
+            border: 1px solid #333333;
+        }
+
+        .buy-btn {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .cart-btn:hover { background: #333333; }
+        .buy-btn:hover { background: #dddddd; }
+
+        @media (max-width: 768px) {
+            .modal-body { flex-direction: column; gap: 20px; }
+            .modal-content { padding: 25px; }
+            .modal-img-box { min-height: 200px; padding: 15px; }
+        }
+       
+    /* 1. 최상위 html의 자체 스크롤바를 숨기고 바깥 여백 초기화 */
+    
+    html {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        overflow: hidden !important; /* html 차원의 스크롤바 방지 */
+    }
+
+    /* 2. body 하나만 스크롤 및 원페이지 스냅(Snap) 스크롤 허용 */
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important; /* 메인 스크롤바 1개 유지 */
+        scroll-behavior: smooth !important; /* 부드러운 이동 */
+        scroll-snap-type: y mandatory !important; /* CSS 원페이지 슬라이딩 스냅 유지 */
+        background-color: #000000;
+    }
+
+    /* 3. 각 섹션/페이지 슬라이드 구역 스냅 설정 */
+    section, .section, .home-section, .page-section {
+        scroll-snap-align: start !important;
+        scroll-snap-stop: always !important;
+    }
+
+    /* 4. 내부 일반 컨테이너의 이중 스크롤만 핀포인트로 차단 */
+    .home-container, .wrapper, #main-wrapper {
+        overflow: visible !important;
+        max-height: none !important;
+    }
+</style>
+</head>
+<body>
+
+    <!-- 1. 최상단 고정 배경 png (start2 또는 start3) -->
+    <a href="index.html" class="ui-fixed-img">
+        <img src="images/start2.png" alt="상단 고정 메인 이동" style="width: 100%; height: auto; display: block;">
+    </a>
+
+    <!-- 🚀 2. MY png 링크 -->
+    <a href="my.html" class="ui-fixed-my">
+        <img src="images/my.png" alt="MY PAGE">
+    </a>
+
+    <div class="shop-container">
+        <!-- sopho -->
+        <a href="#shop-section" class="clickable-link">
+            <img src="images/png/home/sopho.png" alt="sophoshop" class="obj txt-sophoshop">
+        </a>
+        <div id="shop-target" style="height: 1px; margin-top: -20px;"></div>
+
+        <!-- ss png 클릭 이벤트 -->
+        <img src="images/png/home/hp.png" alt="hp" class="obj img-headphone clickable-link" onclick="openDetail('Sapace Headset', 'images/png/bag/hp.png', '1588,000')">
+        <img src="images/png/home/shop.png" alt="Shop 타이틀" id="shop-section" class="obj txt-shop-title">
+        <img src="images/png/home/gl.png" alt="gl" class="obj img-glasses clickable-link" onclick="openDetail('Perspective Glasses', 'images/png/bag/gl.png', '879,000')">
+        <img src="images/png/home/air.png" alt="air" class="obj img-airpods clickable-link" onclick="openDetail('Heart Attack AirPod Case', 'images/png/bag/air.png', '648,000')">
+        <img src="images/png/home/light.png" alt="light" class="obj img-lighter clickable-link" onclick="openDetail('Sparkle! Combustibles', 'images/png/bag/light.png', '258,000')">
+        <img src="images/png/home/ss.png" alt="ss" class="obj img-shoes clickable-link" onclick="openDetail('Fastest Custom Sneakers', 'images/png/bag/ss.png', '1328,000')">
+        <img src="images/png/home/hair.png" alt="hair" class="obj img-hairpin clickable-link" onclick="openDetail('hair', 'images/png/bag/hair.png', '108,000')">
+        <img src="images/png/home/ng.png" alt="ng" class="obj img-necklace clickable-link" onclick="openDetail('Ocean Fairy Necklace', 'images/png/bag/ng.png', '539,000')">
+        <img src="images/png/home/ring.png" alt="ring" class="obj img-ring clickable-link" onclick="openDetail('Special Stone Ring', 'images/png/bag/ring.png', '208,000')">
+        
+        <!-- book bag 모달 열기 -->
+        <img src="images/png/home/book.png" alt="book" class="obj img-book clickable-link" onclick="openDetail('Sopho Book', 'images/png/bag/book.png', '73,000')">
+        
+        <img src="images/png/home/p.png" alt="p 타이틀" class="obj txt-poster-title">
+        <img src="images/ss/rebelion.png" alt="rebelion p" class="obj img-poster-1 clickable-link" onclick="openDetail('Rebellion', 'images/ss/rebelion.png', '5,000')">
+        <img src="images/ss/emotion.png" alt="emotion p" class="obj img-poster-2 clickable-link" onclick="openDetail('EMOTION', 'images/ss/emotion.png', '5,000')">
+        <img src="images/ss/sensitivity.png" alt="sensitivity p" class="obj img-poster-3 clickable-link" onclick="openDetail('SENSITIVE', 'images/ss/sensitivity.png', '5,000')">
+        <img src="images/ss/romantic.png" alt="romantic p" class="obj img-poster-5 clickable-link" onclick="openDetail('Romantic', 'images/ss/romantic.png', '5,000')">
+        <img src="images/ss/bluff.png" alt="자아도취" class="obj img-poster-4 clickable-link" onclick="openDetail('Bluff', 'images/ss/bluff.png', '5,000')">
+        <img src="images/ss/cringeworthy.png" alt="cringeworthy" class="obj img-poster-6 clickable-link" onclick="openDetail('Cringeworthy', 'images/ss/cringeworthy.png', '5,000')">
+
+        <img src="images/png/home/story.png" alt="Story 타이틀" class="obj txt-story-title">
+
+        <!-- 굿즈 섹션 -->
+        <img src="images/png/home/ft.png" alt="ft" class="obj img-f-poster clickable-link" onclick="openDetail('Fabric Poster', 'images/png/bag/ft.png', '32,000')">
+        <img src="images/png/home/pc.png" alt="pc" class="obj img-phoncase clickable-link" onclick="openDetail('Phone Case', 'images/png/bag/pc.png', '13,000')">
+        <img src="images/png/home/mc.png" alt="mc" class="obj img-maskcase clickable-link" onclick="openDetail('Mask Case', 'images/png/bag/mc.png', '18,000')">
+        <img src="images/png/home/sleep.png" alt="sleep" class="obj img-sleepmask clickable-link" onclick="openDetail('Sleep Mask', 'images/png/bag/sleep.png', '13,000')">
+        <img src="images/png/home/b.png" alt="b" class="obj img-band clickable-link" onclick="openDetail('Band-Aid', 'images/png/bag/b.png', '4,000')">
+        <img src="images/png/home/key.png" alt="key" class="obj img-keyring clickable-link" onclick="openDetail('Keyring', 'images/png/bag/key.png', '40,000')">
+        
+        <img src="images/ss/t1.png" alt="t1" class="obj img-t1 clickable-link" onclick="openDetail('01. T-Shirt', 'images/ss/t1.png', '22,000')">
+        <img src="images/ss/t2.png" alt="t2" class="obj img-t2 clickable-link" onclick="openDetail('02. T-Shirt', 'images/ss/t2.png', '22,000')">
+        <img src="images/ss/t3.png" alt="t3" class="obj img-t3 clickable-link" onclick="openDetail('03. T-Shirt', 'images/ss/t3.png', '22,000')">
+        <img src="images/ss/t4.png" alt="t4" class="obj img-t4 clickable-link" onclick="openDetail('04. T-Shirt', 'images/ss/t4.png', '22,000')">
+        <img src="images/ss/t5.png" alt="t5" class="obj img-t5 clickable-link" onclick="openDetail('05. T-Shirt', 'images/ss/t5.png', '22,000')">
+        <img src="images/ss/t6.png" alt="t6" class="obj img-t6 clickable-link" onclick="openDetail('06. T-Shirt', 'images/ss/t6.png', '22,000')">
+        <img src="images/png/home/t.png" alt="t" class="obj img-tshirt">
+
+        <!-- 비디오 20개 세트 -->
+        <video class="obj video-story-1" autoplay loop muted playsinline><source src="videos/1.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_1.png" alt="01" class="obj txt-story-1">
+
+        <video class="obj video-story-2" autoplay loop muted playsinline><source src="videos/2.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_2.png" alt="02" class="obj txt-story-2">
+
+        <video class="obj video-story-3" autoplay loop muted playsinline><source src="videos/3.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_3.png" alt="03" class="obj txt-story-3">
+
+        <video class="obj video-story-4" autoplay loop muted playsinline><source src="videos/4.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_4.png" alt="04" class="obj txt-story-4">
+
+        <video class="obj video-story-5" autoplay loop muted playsinline><source src="videos/5.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_5.png" alt="05" class="obj txt-story-5">
+
+        <video class="obj video-story-6" autoplay loop muted playsinline><source src="videos/6.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_6.png" alt="06" class="obj txt-story-6">
+
+        <video class="obj video-story-7" autoplay loop muted playsinline><source src="videos/7.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_7.png" alt="07" class="obj txt-story-7">
+
+        <video class="obj video-story-8" autoplay loop muted playsinline><source src="videos/8.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_8.png" alt="08" class="obj txt-story-8">
+
+        <video class="obj video-story-9" autoplay loop muted playsinline><source src="videos/9.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_9.png" alt="09" class="obj txt-story-9">
+
+        <video class="obj video-story-10" autoplay loop muted playsinline><source src="videos/10.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_10.png" alt="010" class="obj txt-story-10">
+
+        <video class="obj video-story-11" autoplay loop muted playsinline><source src="videos/11.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_11.png" alt="011" class="obj txt-story-11">
+
+        <video class="obj video-story-12" autoplay loop muted playsinline><source src="videos/12.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_12.png" alt="012" class="obj txt-story-12">
+
+        <video class="obj video-story-13" autoplay loop muted playsinline><source src="videos/13.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_13.png" alt="013" class="obj txt-story-13">
+
+        <video class="obj video-story-14" autoplay loop muted playsinline><source src="videos/14.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_14.png" alt="014" class="obj txt-story-14">
+
+        <video class="obj video-story-15" autoplay loop muted playsinline><source src="videos/15.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_15.png" alt="015" class="obj txt-story-15">
+
+        <video class="obj video-story-16" autoplay loop muted playsinline><source src="videos/16.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_16.png" alt="016" class="obj txt-story-16">
+
+        <video class="obj video-story-17" autoplay loop muted playsinline><source src="videos/17.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_17.png" alt="017" class="obj txt-story-17">
+
+        <video class="obj video-story-18" autoplay loop muted playsinline><source src="videos/18.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_18.png" alt="018" class="obj txt-story-18">
+
+        <video class="obj video-story-19" autoplay loop muted playsinline><source src="videos/19.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_19.png" alt="019" class="obj txt-story-19">
+
+        <video class="obj video-story-20" autoplay loop muted playsinline><source src="videos/20.mp4" type="video/mp4"></video>
+        <img src="images/png/videos/h_20.png" alt="020" class="obj txt-story-20">
+    </div>
+
+    <!-- 메뉴바 -->
+    <div class="top-menu-bar">
+        <img src="images/png/home/home.png" alt="Home" onclick="location.href='home.html'">
+        <img src="images/png/home/shop.png" alt="Shop" onclick="location.href='shop.html'">
+        <img src="images/png/home/story.png" alt="Story" onclick="location.href='story.html'">
+    </div>
+
+    <!-- 커머스 상세페이지 모달 레이아웃 -->
+    <div id="product-modal" class="modal-overlay" onclick="closeDetail(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeDetail()">&times;</button>
+            <div class="modal-body">
+                <div class="modal-img-box">
+                    <img id="modal-img" src="" alt="ss 상세 png">
+                </div>
+                <div class="modal-info-box">
+                    <p class="brand-tag">sophoshop OFFICIAL</p>
+                    <h2 id="modal-title">ss명</h2>
+                    <div class="price-row">
+                        <span id="modal-price">0</span><span class="currency">KRW</span>
+                    </div>
+                    <hr class="divider">
+                    
+                    <div class="quantity-group">
+                        <label>QUANTITY</label>
+                        <div class="qty-control">
+                            <button onclick="changeQty(-1)">-</button>
+                            <input type="text" id="qty-input" value="1" readonly>
+                            <button onclick="changeQty(1)">+</button>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="cart-btn" onclick="addToCart()">ADD TO CART</button>
+                        <button class="buy-btn" onclick="addToCart(true)">BUY NOW</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isAnimating = false;
+        let currentProduct = {};
+
+        function scrollToElement(targetSelector) {
+            const target = document.querySelector(targetSelector);
+            if (!target) return;
+
+            isAnimating = true;
+            // 🛠️ 오타(-) 수정 완료
+            const targetPos = target.getBoundingClientRect().top + window.pageYOffset - 150;
+
+            window.scrollTo({
+                top: targetPos,
+                behavior: 'smooth'
+            });
+
+            setTimeout(() => { isAnimating = false; }, 1000);
+        }
+
+        window.addEventListener('wheel', (event) => {
+            if (isAnimating) return;
+
+            const isScrollDown = event.deltaY > 0;
+            if (!isScrollDown) return;
+
+            const currentY = window.scrollY;
+            const storyTitle = document.querySelector('.txt-story-title');
+
+            if (!storyTitle) return;
+
+            // 🛠️ 오타(-) 수정 완료
+            const storyPos = storyTitle.getBoundingClientRect().top + window.pageYOffset - 150;
+
+            if (currentY < 150) {
+                event.preventDefault();
+                scrollToElement('.txt-shop-title');
+            } 
+            // 🛠️ 오타(-) 수정 완료
+            else if (currentY >= (storyPos - 500) && currentY < (storyPos - 100)) {
+                event.preventDefault();
+                scrollToElement('.txt-story-title');
+            }
+        }, { passive: false });
+
+        const objObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                    entry.target.style.opacity = '1';
+                } else {
+                    entry.target.classList.remove('fade-in-up');
+                    entry.target.style.opacity = '0';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.obj').forEach(obj => {
+            if (!obj.classList.contains('txt-sophoshop') && 
+                !obj.classList.contains('txt-shop-title') && 
+                !obj.classList.contains('txt-poster-title') && 
+                !obj.classList.contains('txt-story-title')) {
+                objObserver.observe(obj);
+            }
+        });
+
+        function openDetail(title, imgSrc, price) {
+            currentProduct = { title, imgSrc, price };
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-img').src = imgSrc;
+            document.getElementById('modal-price').innerText = price;
+            document.getElementById('qty-input').value = 1;
+            
+            document.getElementById('product-modal').style.display = 'flex';
+        }
+
+        function closeDetail(event) {
+            if (!event || event.target.classList.contains('modal-overlay') || event.target.classList.contains('close-btn')) {
+                document.getElementById('product-modal').style.display = 'none';
+            }
+        }
+
+        function changeQty(delta) {
+            const input = document.getElementById('qty-input');
+            let current = parseInt(input.value) || 1;
+            current += delta;
+            if (current < 1) current = 1;
+            input.value = current;
+        }
+
+        function addToCart(goToBuy = false) {
+            const qty = parseInt(document.getElementById('qty-input').value) || 1;
+            let cart = JSON.parse(localStorage.getItem('sophoCart')) || [];
+
+            const existingIndex = cart.findIndex(item => item.title === currentProduct.title);
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += qty;
+            } else {
+                cart.push({
+                    id: Date.now(),
+                    title: currentProduct.title,
+                    imgSrc: currentProduct.imgSrc,
+                    price: currentProduct.price,
+                    qty: qty
+                });
+            }
+
+            localStorage.setItem('sophoCart', JSON.stringify(cart));
+
+            if (goToBuy) {
+                location.href = 'my.html';
+            } else {
+                if (confirm('bag에 담겼습니다. 마이페이지로 이동하시겠습니까?')) {
+                    location.href = 'my.html';
+                } else {
+                    closeDetail();
+                }
+            }
+        }
+    </script>
+</body>
+</html>

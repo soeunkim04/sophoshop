@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - 상점</title>
+    <link rel="stylesheet" href="shop.css">
+</head>
+<body>
+
+    <!-- 🔴 상단 고정 헤더 -->
+    <a href="index.html" class="ui-fixed-img">
+        <img src="images/start2.png" alt="상단 고정 빨간 바" style="width: 100%; height: auto; display: block;">
+    </a>
+
+    <!-- 🚀 MY 버튼 (규격 고정) -->
+    <a href="my.html" class="ui-fixed-my">
+        <img src="images/my.png" alt="MY PAGE">
+    </a>
+
+    <!-- 📌 우측 상단 고정 메뉴바 -->
+    <div class="top-menu-bar">
+        <img src="images/png/shop/home.png" alt="Home" onclick="location.href='home.html'">
+        <img src="images/png/shop/shop.png" alt="Shop" onclick="location.href='shop.html'">
+        <img src="images/png/shop/story.png" alt="Story" onclick="location.href='story.html'">
+    </div>
+
+    <!-- 🛍️ 메인 상점 배치 영역 (가로 전체 활용) -->
+    <div class="shop-container">
+
+        <!-- 1. p 시리즈 1~5열 -->
+        <div class="shop-section">
+            <div class="grid-5">
+                <div class="shop-item item-poster-1" onclick="openDetail('Rebellion Poster', 'images/png/bag/p1.png', '5,000')"><img src="images/png/shop/p1.png" alt="Rebellion"></div>
+                <div class="shop-item item-poster-2" onclick="openDetail('Emotion Poster', 'images/png/bag/p2.png', '5,000')"><img src="images/png/shop/p2.png" alt="Emotion"></div>
+                <div class="shop-item item-poster-3" onclick="openDetail('Sensitivity Poster', 'images/png/bag/p3.png', '5,000')"><img src="images/png/shop/p3.png" alt="Sensitivity"></div>
+                <div class="shop-item item-poster-4" onclick="openDetail('Bluff Poster', 'images/png/bag/p4.png', '5,000')"><img src="images/png/shop/p4.png" alt="Bluff"></div>
+                <div class="shop-item item-poster-5" onclick="openDetail('Romantic Poster', 'images/png/bag/p5.png', '5,000')"><img src="images/png/shop/p5.png" alt="Romantic"></div>
+            </div>
+        </div>
+
+        <!-- 2. Cringeworthy, Sopho Book + 대형 Fabric Poster -->
+        <div class="shop-section">
+            <div class="fabric-poster-row">
+                <div class="fabric-left-col">
+                    <div class="shop-item item-poster-6" onclick="openDetail('Cringeworthy Poster', 'images/png/bag/p6.png', '5,000')"><img src="images/png/shop/p6.png" alt="Cringeworthy"></div>
+                    <div class="shop-item item-sopho-book" onclick="openDetail('Sopho Book', 'images/png/bag/book.png', '73,000')"><img src="images/png/shop/book.png" alt="Sopho Book"></div>
+                </div>
+                <div class="fabric-right-col">
+                    <div class="shop-item item-fabric-poster" onclick="openDetail('Fabric Poster', 'images/png/bag/ft.png', '32,000')"><img src="images/png/shop/ft.png" alt="Fabric Poster"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. hp, ng, ss, light -->
+        <div class="shop-section">
+            <div class="grid-4">
+                <div class="shop-item item-headset" onclick="openDetail('Space Headset', 'images/png/bag/hp.png', '1,588,000')"><img src="images/png/shop/hp.png" alt="Space Headset"></div>
+                <div class="shop-item item-necklace" onclick="openDetail('Ocean Fairy Necklace', 'images/png/bag/ng.png', '539,000')"><img src="images/png/shop/ng.png" alt="Ocean Fairy Necklace"></div>
+                <div class="shop-item item-sneakers" onclick="openDetail('Fastest Custom Sneakers', 'images/png/bag/ss.png', '1,328,000')"><img src="images/png/shop/ss.png" alt="Fastest Custom Sneakers"></div>
+                <div class="shop-item item-lighter" onclick="openDetail('Sparkle! Combustibles', 'images/png/bag/light.png', '258,000')"><img src="images/png/shop/light.png" alt="Sparkle! Combustibles"></div>
+            </div>
+        </div>
+
+        <!-- 4. air, hair, ring, gl -->
+        <div class="shop-section">
+            <div class="grid-4">
+                <div class="shop-item item-airpods" onclick="openDetail('Heart Attack AirPod Case', 'images/png/bag/air.png', '648,000')"><img src="images/png/shop/air.png" alt="AirPod Case"></div>
+                <div class="shop-item item-hairpin" onclick="openDetail('hair', 'images/png/bag/hair.png', '108,000')"><img src="images/png/shop/hair.png" alt="hair"></div>
+                <div class="shop-item item-ring" onclick="openDetail('Special Stone Ring', 'images/png/bag/ring.png', '208,000')"><img src="images/png/shop/ring.png" alt="Special Stone Ring"></div>
+                <div class="shop-item item-glasses" onclick="openDetail('Perspective Glasses', 'images/png/bag/gl.png', '879,000')"><img src="images/png/shop/gl.png" alt="Perspective Glasses"></div>
+            </div>
+        </div>
+
+        <!-- 5. pc, 마스크케이스, b, key, sleep -->
+        <div class="shop-section">
+            <div class="grid-5">
+                <div class="shop-item item-phonecase" onclick="openDetail('Phone Case', 'images/png/bag/pc.png', '13,000')"><img src="images/png/shop/pc.png" alt="Phone Case"></div>
+                <div class="shop-item item-maskcase" onclick="openDetail('Mask Case', 'images/png/bag/mc.png', '18,000')"><img src="images/png/shop/mc.png" alt="Mask Case"></div>
+                <div class="shop-item item-band" onclick="openDetail('Band-Aid', 'images/png/bag/b.png', '4,000')"><img src="images/png/shop/b.png" alt="Band-Aid"></div>
+                <div class="shop-item item-keyring" onclick="openDetail('Keyring', 'images/png/bag/key.png', '40,000')"><img src="images/png/shop/key.png" alt="Keyring"></div>
+                <div class="shop-item item-sleepmask" onclick="openDetail('Sleep Mask', 'images/png/bag/sleep.png', '13,000')"><img src="images/png/shop/sleep.png" alt="Sleep Mask"></div>
+            </div>
+        </div>
+
+        <!-- 6. T-Shirt 컬렉션 -->
+        <div class="shop-section tshirt-section">
+            <div class="grid-3 tshirt-grid-1">
+                <div class="shop-item item-tshirt" onclick="openDetail('01. T-Shirt', 'images/png/shop/t1.png', '22,000')"><img src="images/png/shop/t1.png" alt="T-Shirt 1"></div>
+                <div class="shop-item item-tshirt" onclick="openDetail('02. T-Shirt', 'images/png/shop/t2.png', '22,000')"><img src="images/png/shop/t2.png" alt="T-Shirt 2"></div>
+                <div class="shop-item item-tshirt" onclick="openDetail('03. T-Shirt', 'images/png/shop/t3.png', '22,000')"><img src="images/png/shop/t3.png" alt="T-Shirt 3"></div>
+            </div>
+
+            <div class="grid-3 tshirt-grid-2">
+                <div class="shop-item item-tshirt" onclick="openDetail('04. T-Shirt', 'images/png/shop/t4.png', '22,000')"><img src="images/png/shop/t4.png" alt="T-Shirt 4"></div>
+                <div class="shop-item item-tshirt" onclick="openDetail('05. T-Shirt', 'images/png/shop/t5.png', '22,000')"><img src="images/png/shop/t5.png" alt="T-Shirt 5"></div>
+                <div class="shop-item item-tshirt" onclick="openDetail('06. T-Shirt', 'images/png/shop/t6.png', '22,000')"><img src="images/png/shop/t6.png" alt="T-Shirt 6"></div>
+            </div>
+
+            <div class="tshirt-title-img">
+                <img src="images/png/shop/t.png" alt="T-Shirt Info">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 🛍️ 상세페이지 모달 레이아웃 -->
+    <div id="product-modal" class="modal-overlay" onclick="closeDetail(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeDetail()">&times;</button>
+            <div class="modal-body">
+                <div class="modal-img-box">
+                    <img id="modal-img" src="" alt="ss 상세 png">
+                </div>
+                <div class="modal-info-box">
+                    <p class="brand-tag">sophoshop OFFICIAL</p>
+                    <h2 id="modal-title">ss명</h2>
+                    <div class="price-row">
+                        <span id="modal-price">0</span><span class="currency">KRW</span>
+                    </div>
+                    <hr class="divider">
+                    
+                    <div class="quantity-group">
+                        <label>QUANTITY</label>
+                        <div class="qty-control">
+                            <button onclick="changeQty(-1)">-</button>
+                            <input type="text" id="qty-input" value="1" readonly>
+                            <button onclick="changeQty(1)">+</button>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="cart-btn" onclick="addToCart()">ADD TO CART</button>
+                        <button class="buy-btn" onclick="addToCart(true)">BUY NOW</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentProduct = {};
+
+        // 🚀 openDetail(ss명, 기본png경로, 가격, [선택]모달전용png경로)
+        function openDetail(title, imgSrc, price, modalImgSrc = null) {
+            // 모달 전용 png가 따로 지정되어 있으면 사용하고, 없으면 기본 png 사용
+            const displayImgSrc = modalImgSrc ? modalImgSrc : imgSrc;
+            
+            currentProduct = { title, imgSrc: displayImgSrc, price };
+            
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-price').innerText = price;
+            document.getElementById('modal-img').src = displayImgSrc;
+            document.getElementById('qty-input').value = 1;
+
+            document.getElementById('product-modal').style.display = 'flex';
+        }
+
+        function closeDetail(event) {
+            if (!event || event.target.classList.contains('modal-overlay') || event.target.classList.contains('close-btn')) {
+                document.getElementById('product-modal').style.display = 'none';
+            }
+        }
+
+        function changeQty(delta) {
+            const input = document.getElementById('qty-input');
+            let current = parseInt(input.value) || 1;
+            current += delta;
+            if (current < 1) current = 1;
+            input.value = current;
+        }
+
+        function addToCart(goToBuy = false) {
+            const qty = parseInt(document.getElementById('qty-input').value) || 1;
+            let cart = JSON.parse(localStorage.getItem('sophoCart')) || [];
+
+            const existingIndex = cart.findIndex(item => item.title === currentProduct.title);
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += qty;
+            } else {
+                cart.push({
+                    id: Date.now(),
+                    title: currentProduct.title,
+                    imgSrc: currentProduct.imgSrc,
+                    price: currentProduct.price,
+                    qty: qty
+                });
+            }
+
+            localStorage.setItem('sophoCart', JSON.stringify(cart));
+
+            if (goToBuy) {
+                location.href = 'my.html';
+            } else {
+                if (confirm('bag에 담겼습니다. 마이페이지로 이동하시겠습니까?')) {
+                    location.href = 'my.html';
+                } else {
+                    closeDetail();
+                }
+            }
+        }
+    </script>
+</body>
+</html>

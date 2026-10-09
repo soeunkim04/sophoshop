@@ -1,0 +1,337 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* 🚀 메인 컨테이너 */
+.shop-container {
+    width: 100%;
+    max-width: 95vw;
+    margin: 0 auto;
+    padding: 220px 2vw 120px 2vw;
+    position: relative;
+}
+
+/* 🔴 상단 고정 헤더 */
+.ui-fixed-img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 999;
+    display: block;
+    cursor: pointer;
+}
+
+/* 🚀 MY 버튼 고정 규격 */
+a.ui-fixed-my {
+    position: fixed !important;
+    top: 1vw !important;
+    right: 2vw !important;
+    z-index: 99999 !important;
+    display: inline-block !important;
+    width: auto !important;
+    height: auto !important;
+    cursor: pointer;
+}
+
+a.ui-fixed-my img {
+    width: 3vw !important;
+    height: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+    display: block !important;
+    transition: transform 0.2s, filter 0.2s;
+}
+
+a.ui-fixed-my img:hover {
+    transform: scale(1.08);
+    filter: brightness(1.2);
+}
+
+/* 📌 우측 상단 고정 메뉴바 */
+.top-menu-bar {
+    position: fixed;
+    top: 80px;
+    right: 30px;
+    z-index: 1000;
+    display: flex;
+    gap: 20px;
+}
+
+.top-menu-bar img {
+    height: 50px;
+    width: auto;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.top-menu-bar img:hover {
+    transform: scale(1.05);
+}
+
+/* 📐 레이아웃 섹션 (절대 줄바꿈 방지 적용) */
+.shop-section {
+    margin-bottom: 90px;
+    width: 100%;
+}
+
+/* 🚀 모든 그리드 세트에 flex-wrap: nowrap 강제 지정 (창을 아무리 줄여도 한 줄 고정) */
+.grid-5, .grid-4, .grid-3 {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    align-items: flex-end !important;
+    width: 100% !important;
+}
+
+.grid-5 { gap: 1.5vw; }
+.grid-4 { gap: 2vw; }
+.grid-3 { gap: 2.5vw; }
+
+/* 🚀 2번 섹션 (Cringeworthy, Sopho Book, Fabric Poster) 100% 한 줄 강제 고정 */
+.fabric-poster-row {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    flex-direction: row !important;
+    gap: 3vw !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+.fabric-left-col {
+    flex: 2 !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    flex-direction: row !important;
+    gap: 2vw !important;
+}
+
+.fabric-right-col {
+    flex: 1.5 !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+/* 공통 ss 카드 요소 */
+.shop-item {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+    flex-shrink: 1; /* 창이 줄어들 때 아이템 크기가 부드럽게 함께 축소됨 */
+}
+
+.shop-item:hover {
+    transform: translateY(-6px);
+}
+
+.shop-item img {
+    height: auto;
+    object-fit: contain;
+}
+
+/* ==========================================================
+   🔧 🛠️ 각 ss별 세부 크기 미세조정 클래스
+========================================================== */
+
+/* 1. p 시리즈 및 book/ft */
+.item-poster-1 img, .item-poster-2 img, .item-poster-3 img, 
+.item-poster-4 img, .item-poster-5 img, .item-poster-6 img {
+    width: 100%;
+    max-width: 17vw;
+    transform: translateY(-20px);
+}
+
+.item-sopho-book img    { width: 100%; max-width: 17vw; }
+.item-fabric-poster img { width: 100%; max-width: 32vw; }
+
+.item-headset img,
+.item-necklace img,
+.item-sneakers img,
+.item-lighter img {transform: translateY(-60px);}
+
+/* 2. hp, ng, ss, light */
+.item-headset img  { width: 18vw; }
+.item-necklace img { width: 20vw; }
+.item-sneakers img { width: 24vw; }
+.item-lighter img  { width: 20vw; }
+
+/* 3. 에어팟케이스, hair, ring, gl (줄 전체 위로 이동) */
+.item-airpods img,
+.item-hairpin img,
+.item-ring img,
+.item-glasses img {
+    transform: translateY(-90px); /* 👈 마이너스(-) 숫자를 크게 할수록(-40px, -50px 등) 위로 더 올라갑니다 */
+}
+
+/* 3. 에어팟케이스, hair, ring, gl */
+.item-airpods img { width: 23vw; }
+.item-hairpin img { width: 14vw; }
+.item-ring img    { width: 18vw; }
+.item-glasses img { width: 19vw; }
+
+.item-phonecase img,
+.item-maskcase img,
+.item-band img,
+.item-keyring img,
+.item-sleepmask img {
+    transform: translateY(-70px);
+}
+/* 4. pc, 마스크케이스, b, key, sleep */
+.item-phonecase img { width: 16vw; }
+.item-maskcase img  { width: 18vw; }
+.item-band img      { width: 12vw; }
+.item-keyring img   { width: 17vw; transform: translateY(-35px);}
+.item-sleepmask img { width: 16vw; }
+
+/* 5. t 라인업 및 하단 t.png */
+.tshirt-grid-1, .tshirt-grid-2 {
+    margin-bottom: 2.5vw;
+}
+
+.item-tshirt img {
+    width: 100%;
+    max-width: 28vw;
+}
+
+/* 👕 하단 t.png png 크기 조절 */
+.tshirt-title-img {
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 2vw;
+}
+
+.tshirt-title-img img {
+    width: 10vw;
+    max-width: 350px;
+    height: auto;
+    display: block;
+}
+
+/* 🛍️ 커머스 모달 상세페이지 스타일 */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background-color: rgba(0, 0, 0, 0.88);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(8px);
+}
+
+.modal-content {
+    background-color: #0d0d0d;
+    border: 1px solid #2a2a2a;
+    width: 820px;
+    max-width: 90%;
+    color: #ffffff;
+    position: relative;
+    padding: 40px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    border-radius: 4px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px; right: 20px;
+    background: none; border: none;
+    color: #888888; font-size: 32px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-btn:hover { color: #ffffff; }
+
+.modal-body {
+    display: flex; gap: 40px;
+    align-items: center;
+}
+
+.modal-img-box {
+    flex: 1;
+    background-color: #000000;
+    padding: 30px;
+    border: 1px solid #1f1f1f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 380px;
+}
+
+.modal-img-box img {
+    max-width: 100%;
+    max-height: 320px;
+    object-fit: contain;
+}
+
+.modal-info-box {
+    flex: 1.1;
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-tag {
+    font-size: 11px; color: #ff3300;
+    font-weight: bold; letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+#modal-title {
+    font-size: 26px; font-weight: 800;
+    margin-bottom: 12px; line-height: 1.2;
+}
+
+.price-row {
+    font-size: 22px; font-weight: 700;
+    color: #ffffff; margin-bottom: 20px;
+}
+
+.currency { font-size: 13px; margin-left: 4px; color: #888888; }
+.divider { border: 0; height: 1px; background: #222222; margin-bottom: 24px; }
+.quantity-group { margin-bottom: 30px; }
+.quantity-group label { display: block; font-size: 11px; color: #888888; margin-bottom: 8px; }
+
+.qty-control { display: flex; align-items: center; }
+.qty-control button { width: 36px; height: 36px; background: #1a1a1a; color: #ffffff; border: 1px solid #333333; cursor: pointer; }
+.qty-control input { width: 50px; height: 36px; text-align: center; background: #000000; color: #ffffff; border-top: 1px solid #333333; border-bottom: 1px solid #333333; border-left: none; border-right: none; }
+
+.btn-group { display: flex; gap: 10px; margin-top: 10px; }
+.cart-btn, .buy-btn { flex: 1; padding: 16px; font-weight: bold; font-size: 13px; cursor: pointer; border: none; }
+.cart-btn { background: #222222; color: #ffffff; border: 1px solid #333333; }
+.buy-btn { background: #ffffff; color: #000000; }
+
+
+/* 🛍️ 모달 png 박스 기본 레이아웃 */
+.modal-img-box {
+    flex: 1;
+    background-color: #000000;
+    padding: 20px;
+    border: 1px solid #1f1f1f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 320px;
+}
+
+.modal-img-box img {
+    max-width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    display: block;
+}
