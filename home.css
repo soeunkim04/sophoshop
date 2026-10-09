@@ -6,7 +6,7 @@
             background-color: #000000;
             overflow-x: hidden; /* 가로 스크롤 방지 */
             overflow-y: auto;
-        }
+        } 
         /* 2. 내부 컨테이너 박스의 중복 스크롤 속성 제거 */
 .home-container, 
 .wrapper, 
