@@ -53,7 +53,7 @@ main {
         .img-book        { width: 90vw; top: 240vw; left: 3vw; z-index: 6; }
         
         /* p 섹션 (가로폭 기준 동일 비율) */
-        .txt-poster-title{ width: 13vw; top: 353vw; left: 7vw; }
+        .txt-poster-title{ width: 9vw; top: 353vw; left: 7vw; }
         .img-poster-1    { width: 22vw; top: 314vw; left: 8vw;  z-index: 10; }
         .img-poster-2    { width: 22vw; top: 318vw; left: 17vw; z-index: 11; }
         .img-poster-3    { width: 22vw; top: 322vw; left: 26vw; z-index: 12; }
